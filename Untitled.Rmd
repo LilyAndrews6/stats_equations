@@ -1,0 +1,79 @@
+---
+title: "Statistical Equations"
+author: "Lily Andrews"
+date: "2023-11-28"
+output: github_document
+---
+```{r}
+# parameters
+n <- 10000
+maf <- 0.2
+b <- 0.3
+a <- 0
+ 
+# simulate x and e
+x <- rbinom(n, 2, maf)
+table(x)
+p <- 
+e <- rnorm(n)
+ 
+# simulate y
+y <- a + b * x + e
+ 
+# assoc of y ~ x
+summary(lm(y ~ x))
+
+# recapitulate b
+print("recapitulate b")
+b_hat <- cov(x, y)/var(x)
+b_hat
+
+# recapitulate b
+print("recapitulate b")
+b_hat <- sum((x-mean(x))^2*(y-mean(y))^2)/sum((y-mean(y))^2)
+b_hat
+
+# recapitulate a
+print("recapitulate b")
+a_hat <- mean(y) - b_hat*mean(x)
+a_hat
+
+#recapitulate r
+print("recapitulate r")
+cov(x, y)/(sd(x)*sd(y))
+
+
+# rsq of x,y
+print("recapitulate rsq x and y")
+cor(y, x)^2
+ 
+# recapitulate bhat - predicted beta?
+print("recapitulate bhat")
+bhat <- cov(x, y)/var(x)
+bhat^2 * maf * (1-maf) *2 / var(y)
+
+#standard error of x
+print("se of x")
+se_x <- sd(x)/n
+se_x
+#standard error of y
+print("se of y")
+se_y <- sd(y)/n
+se_y
+
+#recapitulated variance of x from allele frequency
+print("recapitulate var(x)")
+p <- length(x[x==1])/n
+var_x <- 2*p*(1-p)
+var_x
+
+## variance of x is also calculated by
+print("var(x)")
+sum((x-mean(x))^2)/n
+
+## variance of y is also calculated by
+print("var(y)")
+sum((y-mean(y))^2)/n
+ 
+```
+
